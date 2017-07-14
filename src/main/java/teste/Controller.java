@@ -15,8 +15,8 @@ public class Controller {
 	public static Scanner scanner = new Scanner(System.in);
 	
 	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException {
-		//String filePath = args[0];
-		readFile("/home/andrepatricio/Desktop/involves.csv");
+		String filePath = args[0];
+		readFile(filePath);
 		waitCommands();
 	}
 
