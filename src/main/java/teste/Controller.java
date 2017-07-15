@@ -7,55 +7,66 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Controller {
 	
 	public static Scanner scanner = new Scanner(System.in);
 	
 	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException {
-		String filePath = args[0];
-		readFile(filePath);
-		waitCommands();
+		//String filePath = args[0];
+		Command commads = readFile("/Users/andrepatricio/Documents/ambiente_prog/workspace/teste-java/involves.csv");
+		waitCommands(commads);
 	}
 
-	private static void readFile(String filePath) throws IOException {
+	private static Command readFile(String filePath) throws IOException {
 		BufferedReader bufferedReader = getBufferedReader(filePath);		
 		FileData fileData = new FileData(bufferedReader.readLine());
 		String line = bufferedReader.readLine();
 		while(line != null){
-			String[] lineElements = line.split(",");
-			City city = new City(lineElements);
-			fileData.getCities().add(city);				
+			fileData.getCities().add(line.split(","));
 			line = bufferedReader.readLine();
 		}
-		System.out.println(fileData.toString());
-		System.out.println("Ocorreu algum problema ao ler o arquivo");
 		bufferedReader.close();
+		return new Command(fileData);
 	}
 
-	private static void waitCommands() throws NoSuchMethodException,
-			IllegalAccessException, InvocationTargetException {
+	private static void waitCommands(Command commands) {
 		while(true){
 			String userInput = getUserInput();
-			String[] commandList = getCommand(userInput);
-			for(int i = 1; i< commandList.length; i++){
-				System.out.println(commandList[i]);
+			if(userInput.equals("count *")){
+				System.out.println("Count: " + commands.count()); 
+			} else if (userInput.startsWith("count distinct")){
+				try {
+					System.out.println(commands.count("uf"));
+				} catch (PropertyNotFoundException e) {
+					System.out.println("A propriedade procurada nao existe no arquivo");
+				}
+			} else if (userInput.startsWith("filter")){
+				try {
+					System.out.println(commands.find("uf", "RO"));
+				} catch (PropertyNotFoundException e) {
+					System.out.println("A propriedade procurada nao existe no arquivo");
+				}
+			} else {
+				System.out.println("Comando nao encontrado");
 			}
-			
-			Method method = Command.class.getDeclaredMethod(commandList[0]);
-			System.out.println(method.invoke(new Command()));
 		}
-	}
-
-	private static String[] getCommand(String userInput) {
-		return userInput.split("\\s+");
 	}
 
 	private static String getUserInput() {
-		System.out.printf("\nInforme um comando: \n");
+		System.out.printf("\nInformar o comando: \n");
 		return scanner.nextLine();
+	}
+	
+	private static String[] getParam(String userInput){
+		Matcher m = Pattern.compile("filter ([\\w]*)").matcher(userInput);
+		if(m.matches()){
+		    System.out.println("Name entered: " + m.group(1));
+		}
+		return null;
 	}
 
 	private static BufferedReader getBufferedReader(String caminhoDoArquivo) {
@@ -63,7 +74,7 @@ public class Controller {
 		try {
 			inputStream = new FileInputStream(caminhoDoArquivo);
 		} catch (FileNotFoundException e) {
-			System.out.println("Arquivo não encontrado: "+ caminhoDoArquivo);
+			System.out.println("Arquivo nao encontrado: "+ caminhoDoArquivo);
 		}
 		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

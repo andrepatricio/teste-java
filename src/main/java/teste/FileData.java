@@ -5,22 +5,22 @@ import java.util.Set;
 
 public class FileData {
 	
-	private String header;
-	private Set<City> cities;
+	private String[] header;
+	private Set<String[]> cities;
 	public FileData(String header) {
-		this.header = header;
-		this.cities = new HashSet<City>();
+		this.header = header.split(",");
+		this.cities = new HashSet<String[]>();
 	}
-	public String getHeader() {
+	public String[] getHeader() {
 		return header;
 	}
-	public void setHeader(String header) {
+	public void setHeader(String[] header) {
 		this.header = header;
 	}
-	public Set<City> getCities() {
+	public Set<String[]> getCities() {
 		return cities;
 	}
-	public void setCities(Set<City> cities) {
+	public void setCities(Set<String[]> cities) {
 		this.cities = cities;
 	}
 
