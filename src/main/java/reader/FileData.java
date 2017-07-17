@@ -1,4 +1,4 @@
-package teste;
+package reader;
 
 import java.util.HashSet;
 import java.util.Set;

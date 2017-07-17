@@ -1,4 +1,4 @@
-package teste;
+package reader;
 
 public class PropertyNotFoundException extends Exception {
 

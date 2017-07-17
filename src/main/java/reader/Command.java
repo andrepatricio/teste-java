@@ -1,4 +1,4 @@
-package teste;
+package reader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +24,8 @@ public class Command {
 		}
 		return listDistinctValues.size();
 	}
-	public String find(String property, String value) throws PropertyNotFoundException{
-		String result = formmatCSV(fileData.getHeader()) + "\n";
+	public String filter(String property, String value) throws PropertyNotFoundException{
+		String result = formmatCSV(fileData.getHeader());
 		int indexSearch = getIndexByProperty(property);
 		for(String[] city : fileData.getCities()){
 			if(city[indexSearch].equals(value)){
