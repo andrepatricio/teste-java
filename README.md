@@ -3,3 +3,13 @@ Criar um programa que leia todas as linhas do arquivo CSV ([faça o download aqu
 - **count** * - escreve no console a contagem total de registros importados (não deve considerar a linha de cabeçalho)
 - **count distinct [propriedade]** - escreve no console o total de valores distintos da propriedade (coluna) enviada 
 - **filter [propriedade] [valor]** - escreve no console a linha de cabeçalho e todas as linhas em que a propriedade enviada possua o valor enviado 
+
+Execução do programa e testes
+-------------
+Desenvolvido com o JDK 1.7 e usando o maven para gerar o .jar.
+
+Ao tentar gerar o jar no maven os testes serão executados, em caso de falha o jar não será gerado. 
+
+Rodar o jar passando o caminho do arquivo como parâmetro, exemplo:
+> java -jar readerCSV.jar /home/andrepatricio/Documents/cidades.csv
+
