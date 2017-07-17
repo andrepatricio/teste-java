@@ -5,6 +5,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import reader.exception.CommandOutOfPatternException;
+import reader.exception.PropertyNotFoundException;
+
 public class Controller {
 	
 	private static final String FILTER_REGEX = "filter (['-.\\w\\s]*)";
@@ -28,7 +31,7 @@ public class Controller {
 		while(true){
 			String userInput = getUserInput();
 			if(userInput.equals(COUNT)){
-				System.out.println("Count: " + commands.count()); 
+				System.out.println("Total de registros: " + commands.count()); 
 			} else if (userInput.startsWith(COUNT_DISTINCT)){
 				countDistinct(commands, userInput);
 			} else if (userInput.startsWith(FILTER)){
@@ -54,7 +57,7 @@ public class Controller {
 
 	private static void countDistinct(Command commands, String userInput) {
 		try {
-			System.out.println(commands.count(getParams(userInput, COUNT_DISTINCT_REGEX)));
+			System.out.println("Total de valores distintos: " + commands.count(getParams(userInput, COUNT_DISTINCT_REGEX)));
 		} catch (PropertyNotFoundException e) {
 			System.out.println("A propriedade procurada nao existe no arquivo");
 		} catch (CommandOutOfPatternException e) {

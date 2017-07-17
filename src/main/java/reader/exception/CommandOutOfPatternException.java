@@ -1,4 +1,4 @@
-package reader;
+package reader.exception;
 
 public class CommandOutOfPatternException extends Exception {
 

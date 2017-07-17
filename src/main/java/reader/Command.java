@@ -3,6 +3,8 @@ package reader;
 import java.util.ArrayList;
 import java.util.List;
 
+import reader.exception.PropertyNotFoundException;
+
 
 public class Command {
 	
@@ -32,7 +34,7 @@ public class Command {
 				result += formmatCSV(city);
 			}
 		}
-		return result;
+		return result.equals(formmatCSV(fileData.getHeader())) ? "Nenhum resultado encontrado" : result;
 	}
 	
 	private int getIndexByProperty(String property) throws PropertyNotFoundException {

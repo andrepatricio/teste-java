@@ -1,6 +1,6 @@
 package teste;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
@@ -8,8 +8,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import reader.Command;
-import reader.PropertyNotFoundException;
 import reader.Reader;
+import reader.exception.PropertyNotFoundException;
 
 
 public class CommandTest {
@@ -47,6 +47,11 @@ public class CommandTest {
 	@Test(expected = PropertyNotFoundException.class)
 	public void testFilterPropertyNotFound() throws PropertyNotFoundException{	
 		command.filter("no_acce", "Alta Floresta D'Oeste");
+	}
+	
+	@Test
+	public void testFilterWithoutResult() throws PropertyNotFoundException{
+		assertEquals(null, "Nenhum resultado encontrado", command.filter("uf", "teste"));
 	}
 
 }
