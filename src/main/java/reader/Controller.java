@@ -10,7 +10,7 @@ import reader.exception.PropertyNotFoundException;
 
 public class Controller {
 	
-	private static final String FILTER_REGEX = "filter (['-.\\p{L}\\s]*)";
+	private static final String FILTER_REGEX = "filter (['-.\\p{L}\\w\\s]*)";
 	private static final String COUNT_DISTINCT_REGEX = "count distinct ([\\w]*)";
 	private static final String FILTER = "filter";
 	private static final String COUNT_DISTINCT = "count distinct";
